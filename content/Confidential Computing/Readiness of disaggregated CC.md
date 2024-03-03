@@ -1,9 +1,9 @@
 ---
-date created: February 14th 2024, Wednesday, 12:33:34 pm
-date modified: February 28th 2024, Wednesday, 1:51:29 am
+date: 2024-02-14T18:08
+lastmod: 2024-03-02T19:27
 cssclasses: []
 ---
-# Resource disaggregation (rack-scale computing)
+# Resource disaggregation
 - Co-locate same components such as CPUs, DRAMs as a group and interconnect them over high-speed network fabric.
 
 - Resource disaggregation first started with the computing units such as CPU, DPU, and FPGA.
@@ -29,7 +29,9 @@ Attestation is the process of demonstrating that software running in side TEEs o
 
 >[!question] How to expand trust from in-host TEE to other components, especially to other physical machine?
 >- One solution is to make all nodes TEE-enabled, but this is not practical.
->- Protecting non-TEE nodes can be done via bus-level isolation if they are directly physically connected to a TEE host. ^[[[Arxiv] Composite Enclaves: Towards Disaggregated Trusted Execution](https://arxiv.org/pdf/2010.10416.pdf)] ^[[[Micro'22] CRONUS: Fault-isolated, Secure and High-performance Heterogeneous Computing for Trusted Execution Environment](https://ieeexplore.ieee.org/document/9923810)]
+>- Protecting non-TEE nodes can be done via bus-level isolation if they are directly physically connected to a TEE host. [^1] [^2]
+>[^1]: [[Arxiv] Composite Enclaves: Towards Disaggregated Trusted Execution](https://arxiv.org/pdf/2010.10416.pdf)
+>[^2]: [[Micro'22] CRONUS: Fault-isolated, Secure and High-performance Heterogeneous Computing for Trusted Execution Environment](https://ieeexplore.ieee.org/document/9923810)
 
 >[!todo] Survey on the readiness of commodity HW
 
@@ -98,4 +100,4 @@ This is straightforward.
 - [[Micro'22] CRONUS: Fault-isolated, Secure and High-performance Heterogeneous Computing for Trusted Execution Environment](https://ieeexplore.ieee.org/document/9923810)
 - [[S&P'20] Enabling rack-scale conﬁdential computing using heterogeneous trusted execution environment](https://ieeexplore.ieee.org/document/9152787)
 	- Enable TEE abstractions for a single rack containing non-TEE nodes
-	- [c] Do not scale to multiple racks and are not designed to leverage nodes that have TEE support.
+	- Do not scale to multiple racks and are not designed to leverage nodes that have TEE support.
