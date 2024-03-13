@@ -1,0 +1,1 @@
+- Accelerators require hardware modifications to enable TEE operations
