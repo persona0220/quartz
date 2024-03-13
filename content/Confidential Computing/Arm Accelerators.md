@@ -1,7 +1,8 @@
 ---
 date: 2024-03-05T02:38
-lastmod: 2024-03-11T21:28
+lastmod: 2024-03-13T02:12
 ---
+#Arm 
 
 ## Arm GPU
 - Arm GPU share a unified memory with the CPU and other peripherals.

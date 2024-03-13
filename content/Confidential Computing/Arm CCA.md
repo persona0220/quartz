@@ -1,7 +1,8 @@
 ---
 date: 2024-03-05T14:58
-lastmod: 2024-03-12T17:55
+lastmod: 2024-03-13T07:43
 ---
+
 Arm Confidential Computing Architecture (CCA) enables the creation of VM-based isolated execution environment. 
 
 ![[Pasted image 20240305150106.png]]
@@ -45,3 +46,6 @@ Arm Confidential Computing Architecture (CCA) enables the creation of VM-based i
 2. Trusted monitor updates the GPT to change memory pages from normal to realm world
 	- [!] GPT changes trigger flushing of TLBs caches of all GPCs
 3. RMM checks validity and updates its stage-2 translation tables
+
+
+#Arm

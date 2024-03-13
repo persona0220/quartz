@@ -21,8 +21,8 @@ const config: QuartzConfig = {
     theme: {
       cdnCaching: true,
       typography: {
-        header: "Schibsted Grotesk",
-        body: "Source Sans Pro",
+        header: "Annapurna SIL",
+        body: "Roboto Thin",
         code: "IBM Plex Mono",
       },
       colors: {
@@ -32,8 +32,8 @@ const config: QuartzConfig = {
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
           dark: "#2b2b2b",
-          secondary: "#478Acc",
-          tertiary: "#84a59d",
+          secondary: "#1E1E5D",
+          tertiary: "#C7D8E1",
           highlight: "rgba(143, 159, 169, 0.15)",
         },
         darkMode: {

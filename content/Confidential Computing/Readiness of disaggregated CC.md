@@ -1,13 +1,15 @@
 ---
+title: Readiness of disaggregated CC
 date: 2024-02-14T18:08
-lastmod: 2024-03-12T17:33
+lastmod: 2024-03-13T06:13
 cssclasses: []
 ---
 # Resource disaggregation
 - Co-locate same components such as CPUs, DRAMs as a group and interconnect them over high-speed network fabric.
 
-- Resource disaggregation first started with the computing units such as CPU, DPU, and FPGA.
-	- allows flexible and efficient resource allocation for computing workloads that change its demand over time.
+- Resource disaggregation first started with the *computing* units such as CPU, GPU, and FPGA.
+	- It allows flexible and efficient resource allocation for computing workloads that change its demand over time.
+	- e.g., CPU, GPU, AI processor, SmartNIC, IPU
 - More recently, the idea has expanded to memory components such as SSD, DRAM and PRAM.
 	- allows an efficient sharing of persistent data among the tenants as well as across VM migration.
 
@@ -25,15 +27,15 @@ Attestation is the process of demonstrating that software running in side TEEs o
 
 
 # Challenges
-## HW challenges
+## HW components 
 
->[!question] How to expand trust from in-host TEE to other components, especially to other physical machine?
+>[!todo] Survey on the readiness of commodity HW
+
+>[!question] How to expand trust from in-host TEE to other components, especially to other physical machine? 
 >- One solution is to make all nodes TEE-enabled.
 >- Protecting non-TEE nodes can be done via bus-level isolation if they are directly physically connected to a TEE host.
 >	- [[Arxiv'21] Composite Enclaves: Towards Disaggregated Trusted Execution](https://arxiv.org/pdf/2010.10416.pdf)
 >	- [[Micro'22] CRONUS: Fault-isolated, Secure and High-performance Heterogeneous Computing for Trusted Execution Environment](https://ieeexplore.ieee.org/document/9923810)
-
->[!todo] Survey on the readiness of commodity HW
 
 
 

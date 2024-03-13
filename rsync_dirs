@@ -1,3 +1,4 @@
 #!/bin/bash
 rsync -r --delete ~/Workspace/obsidian/Zotero/ ./content/References/
 rsync -r --delete ~/Workspace/obsidian/Confidential\ Computing/Survey/ ./content/Confidential\ Computing/
+cp ~/Workspace/obsidian/Confidential\ Computing/Survey/Readiness\ of\ disaggregated\ CC.md ./content/index.md
