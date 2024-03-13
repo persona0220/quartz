@@ -32,6 +32,7 @@ export interface Options {
   enableYouTubeEmbed: boolean
   enableVideoEmbed: boolean
   enableCheckbox: boolean
+  enableIcons: boolean
 }
 
 const defaultOptions: Options = {
@@ -47,6 +48,7 @@ const defaultOptions: Options = {
   enableYouTubeEmbed: true,
   enableVideoEmbed: true,
   enableCheckbox: false,
+  enableIcons: true,
 }
 
 const calloutMapping = {
@@ -77,6 +79,25 @@ const calloutMapping = {
   example: "example",
   quote: "quote",
   cite: "quote",
+} as const
+
+const IconMapping = {
+  "[x]": "✅",
+  "[!]": "⚠️",
+  "[?]": "❓",
+  "[*]": "⭐️",
+  "[l]": "📍",
+  "[b]": "📑",
+  "[i]": "ℹ️",
+  "[S]": "💰",
+  "[I]": "💡",
+  "[p]": "🙂",
+  "[c]": "☹️",
+  "[f]": "🔥",
+  "[k]": "🔑",
+  "[w]": "🎂",
+  "[u]": "📈",
+  "[d]": "📉",
 } as const
 
 const arrowMapping: Record<string, string> = {
@@ -129,6 +150,8 @@ const wikilinkImageEmbedRegex = new RegExp(
   /^(?<alt>(?!^\d*x?\d*$).*?)?(\|?\s*?(?<width>\d+)(x(?<height>\d+))?)?$/,
 )
 
+const IconRegex = new RegExp(/\[([^\]]+)\]/, "g")
+
 export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options> | undefined> = (
   userOpts,
 ) => {
@@ -162,6 +185,17 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options> 
           return value + "\n> "
         })
       }
+
+      // test
+      // if (opts.enableIcons) {
+      //   if (src instanceof Buffer) {
+      //     src = src.toString()
+      //   }
+
+      //   src = src.replace(IconRegex, (value, ...capture) => {
+      //     return 'z' + value + 'z'
+      //   })
+      // }
 
       // pre-transform wikilinks (fix anchors to things that may contain illegal syntax e.g. codeblocks, latex)
       if (opts.wikilinks) {
@@ -297,6 +331,20 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options> 
                 return {
                   type: "html",
                   value: `<span>${maybeArrow}</span>`,
+                }
+              },
+            ])
+          }
+
+          if (opts.enableIcons) {
+            replacements.push([
+              IconRegex,
+              (value: string, ..._capture: string[]) => {
+                const maybeIcon = IconMapping[value]
+                if (maybeIcon === undefined) return value
+                return {
+                  type: "html",
+                  value: `<span>${maybeIcon}</span>`
                 }
               },
             ])
