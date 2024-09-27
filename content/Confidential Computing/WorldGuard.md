@@ -1,6 +1,6 @@
 ---
 date: 2024-08-16T13:29
-lastmod: 2024-08-19T23:01
+lastmod: 2024-09-25T05:08
 ---
 
 ## Summary
@@ -22,6 +22,28 @@ WorldGuard offers SoC-level information control with advanced isolation control,
 
 In both scenarios, a world can run on more than one core at a time.
 
+### Available scenarios for trusted agent
+A trusted agent, running under *trusted WID*, has a power to change WorldGuard configuration.
+1. Multi-core SoC with Trusted Core: dedicate one core to be the trusted agent. 
+2. Multi-core with M-mode Firmware as Trusted Agent: one or more wg-aware cores has the right to use the trusted WID. M-mode firmware on any of those cores can change WorldGuard configuration. Therefore, extra effort may be required to synchronize the configuration changes among different cores.
+3. Single Core: M-mode firmware is considered the trusted agent. 
+
+## Benefits
+
+### vs Physical Memory Protection (PMP)
+- PMP access controls are specified independently at each core and access checks are performed at the core. When the physical memory map becomes fragmented, the number of PMP entries required may exceed the number actually available, requiring more complex PMP management.
+- WorldGuard access controls are specified at the resources, WorldGuard can provide both **finer granularity** and **better scalability** than PMP.
+
+### vs MMU
+- MMU also provides isolation between software contexts, under the management of a supervisor or hypervisor.
+- WorldGuard provides a simpler controlling code base than MMU, **reducing the size of TCB**.
+
+### vs Arm TrustZone
+The biggest different is that TrustZone has only two worlds, one secure world and one non-secure world. Typically, the secure world is a slave, intended for support of the non-secure world and only responding to their requests. In contrast, WorldGuard can create **unlimited number of worlds**, even for each user application, to support isolation enforced by hardware.
+
+In TrustZone, the NS bit isolates secure world resources from the non-secure world. The WorldGuard's WID is equivalent to the NS bit in that it identifies the running world. But it is more scalable because it can represent more than two worlds. If the system is built for only two worlds, the WID need only be one bit wide. Therefore, WorldGuard can emulate TrustZone TEE architecture by creating two worlds (secure and non-secure) or three worlds (secure, non-secure and monitor). 
+
+
 ## Isolation of WorldGuard
 ### Vertical isolation
 - Within a world, **privilege modes** isolate user software from supervisory (operating system) software; user (U), supervisor/hypervisor (S), and machine (M) modes
@@ -31,11 +53,6 @@ In both scenarios, a world can run on more than one core at a time.
 - Within a world, the operating system kernel uses the page tables and MMU to isolate the resources of one application from another
 - **Horizontal isolation between worlds is provided by hardware using the WID** field under supervision of the Secure Monitor, which runs in M-mode.
 
-## vs Arm TrustZone
-
-The biggest different is that TrustZone has only two worlds, one secure world and one non-secure world. Typically, the secure world is a slave, intended for support of the non-secure world and only responding to their requests. In contrast, WorldGuard can create unlimited number of worlds, even for each user application, to support isolation enforced by hardware.
-
-In TrustZone, the NS bit isolates secure world resources from the non-secure world. The WorldGuard's WID is equivalent to the NS bit in that it identifies the running world. But it is more scalable because it can represent more than two worlds. If the system is built for only two worlds, the WID need only be one bit wide. Therefore, WorldGuard can emulate TrustZone TEE architecture by creating two worlds (secure and non-secure) or three worlds (secure, non-secure and monitor). 
 
 ## More details
 
@@ -83,3 +100,4 @@ SiFive also provides propper WorldGuard Marker for outside (i.e., AXI front port
 - [[SEC'21] CURE: A Security Architecture with CUstomizable and Resilient Enclaves](https://www.usenix.org/conference/usenixsecurity21/presentation/bahmani)
 - [[pdf] Using SiFive WorldGuard for Deploying a TEE/REE System](https://sifive.cdn.prismic.io/sifive/a2a13237-aa42-480a-85e8-249ebb38490a_WorldGuard_TEE_REE_App_Note_v1.4.pdf)
 - [[pdf] SiFive WorldGuard Technical Paper](https://sifive.cdn.prismic.io/sifive/31b03c05-70fa-4dd8-bb06-127fdb4ba85a_WorldGuard-Technical-Paper_v2.4.pdf)
+- https://lists.riscv.org/g/security/search?p=recentpostdate%2Fsticky%2C%2C%2C20%2C2%2C0%2C0&q=Worldguard
